@@ -1,7 +1,13 @@
-from src.app import activities
+import copy
+
+import pytest
+from fastapi.testclient import TestClient
+from src.app import activities, app
+
+client = TestClient(app)
 
 
-def test_root_redirects_to_static_index(client):
+def test_root_redirects_to_static_index():
     # Arrange
     url = "/"
 
@@ -13,7 +19,7 @@ def test_root_redirects_to_static_index(client):
     assert response.headers["location"] == "/static/index.html"
 
 
-def test_get_activities_returns_all_activities(client):
+def test_get_activities_returns_all_activities():
     # Arrange
     url = "/activities"
 
@@ -25,7 +31,7 @@ def test_get_activities_returns_all_activities(client):
     assert response.json() == activities
 
 
-def test_signup_for_activity_adds_participant(client):
+def test_signup_for_activity_adds_participant():
     # Arrange
     activity_name = "Chess Club"
     email = "newstudent@mergington.edu"
@@ -41,7 +47,7 @@ def test_signup_for_activity_adds_participant(client):
     assert email in activities[activity_name]["participants"]
 
 
-def test_signup_for_missing_activity_returns_404(client):
+def test_signup_for_missing_activity_returns_404():
     # Arrange
     url = "/activities/Nonexistent/signup"
     email = "user@mergington.edu"
@@ -52,6 +58,14 @@ def test_signup_for_missing_activity_returns_404(client):
     # Assert
     assert response.status_code == 404
     assert response.json()["detail"] == "Activity not found"
+
+
+@pytest.fixture(autouse=True)
+def reset_activities():
+    original = copy.deepcopy(activities)
+    yield
+    activities.clear()
+    activities.update(original)
 
 
 def test_signup_without_email_returns_validation_error(client):
