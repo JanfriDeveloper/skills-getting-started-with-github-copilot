@@ -191,21 +191,22 @@ activity-card p {
 #weekly-calendar-table th {
   color: #1a237e;
   font-weight: 700;
-  height: 150px;
-  padding: 4px 8px;
-  white-space: normal;
+  padding: 10px 12px;
+  white-space: nowrap;
+  text-align: center;
 }
 
 #weekly-calendar-table th:not(:first-child) {
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  padding: 6px 8px;
+  transform: none;
+  writing-mode: horizontal-tb;
+  padding: 10px 12px;
 }
 
 #weekly-calendar-table td:first-child {
   font-weight: 700;
   color: #1a237e;
-  white-space: nowrap;
+  white-space: normal;
+  text-align: left;
 }
 
 #weekly-calendar-table tr:nth-child(even) {

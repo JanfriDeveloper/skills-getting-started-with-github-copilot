@@ -6,11 +6,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const weeklyCalendarBody = document.getElementById("weekly-calendar-body");
 
   function parseSchedule(schedule) {
+    if (!schedule || typeof schedule !== "string") {
+      return { days: [], time: "" };
+    }
+
     const parts = schedule.split(", ");
     const timePart = parts.slice(-1)[0];
     const dayPart = parts.slice(0, -1).join(", ");
     const dayNames = dayPart
-      .split(/, | and /)
+      .split(/,\s*|\s+and\s+/i)
       .map((day) => day.trim())
       .filter(Boolean)
       .map((day) => day.replace(/s$/i, ""));
@@ -45,12 +49,18 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!weeklyCalendarBody) return;
 
     const orderedDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-    const activitySchedules = Object.entries(activities).map(([name, details]) => ({
-      name,
-      schedule: parseSchedule(details.schedule),
-    }));
+    const activitySchedules = Object.entries(activities)
+      .map(([name, details]) => ({ name, schedule: parseSchedule(details.schedule) }))
+      .sort((a, b) => a.name.localeCompare(b.name));
 
     weeklyCalendarBody.innerHTML = "";
+
+    if (!activitySchedules.length) {
+      const emptyRow = document.createElement("tr");
+      emptyRow.innerHTML = '<td colspan="8">No scheduled activities available</td>';
+      weeklyCalendarBody.appendChild(emptyRow);
+      return;
+    }
 
     activitySchedules.forEach((activity) => {
       const row = document.createElement("tr");
