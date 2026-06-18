@@ -40,40 +40,40 @@ activities = {
         "participants": ["john@mergington.edu", "olivia@mergington.edu"]
     },
     "Basketball Team": {
-        "description": "Join the school basketball team for practices and games",
+        "description": "Competitive basketball training and games",
         "schedule": "Tuesdays and Thursdays, 4:00 PM - 6:00 PM",
-        "max_participants": 15,
+        "max_participants": 18,
         "participants": ["noah@mergington.edu"]
     },
     "Swimming Club": {
-        "description": "Improve swim techniques and compete in friendly meets",
+        "description": "Swim practice and water safety instruction",
         "schedule": "Wednesdays and Fridays, 3:30 PM - 5:00 PM",
-        "max_participants": 18,
+        "max_participants": 16,
         "participants": ["ava@mergington.edu"]
     },
-    "Art Club": {
-        "description": "Explore painting, drawing, and mixed media art projects",
+    "Art Workshop": {
+        "description": "Explore painting, drawing, and mixed media art",
         "schedule": "Mondays, 3:30 PM - 5:00 PM",
-        "max_participants": 20,
-        "participants": ["isabella@mergington.edu"]
-    },
-    "Drama Club": {
-        "description": "Rehearse and perform plays, improv, and theatrical pieces",
-        "schedule": "Thursdays, 3:30 PM - 5:30 PM",
-        "max_participants": 25,
-        "participants": ["liam@mergington.edu"]
-    },
-    "Science Club": {
-        "description": "Conduct experiments and explore science topics together",
-        "schedule": "Tuesdays, 3:30 PM - 4:30 PM",
-        "max_participants": 20,
+        "max_participants": 14,
         "participants": ["mia@mergington.edu"]
     },
+    "Drama Club": {
+        "description": "Acting, stage production, and performance skills",
+        "schedule": "Thursdays, 4:00 PM - 6:00 PM",
+        "max_participants": 20,
+        "participants": ["sophia@mergington.edu"]
+    },
     "Math Olympiad": {
-        "description": "Practice challenging math problems and prepare for competitions",
-        "schedule": "Wednesdays, 4:00 PM - 5:30 PM",
+        "description": "Prepare for math competitions and problem solving",
+        "schedule": "Wednesdays, 3:30 PM - 5:00 PM",
         "max_participants": 15,
         "participants": ["lucas@mergington.edu"]
+    },
+    "Science Club": {
+        "description": "Hands-on experiments and science exploration",
+        "schedule": "Fridays, 3:30 PM - 5:00 PM",
+        "max_participants": 18,
+        "participants": ["emma@mergington.edu"]
     }
 }
 
@@ -115,8 +115,3 @@ def signup_for_activity(activity_name: str, email: str):
     # Add student
     activity["participants"].append(email)
     return {"message": f"Signed up {email} for {activity_name}"}
-
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)

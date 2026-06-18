@@ -102,17 +102,15 @@ document.addEventListener("DOMContentLoaded", () => {
               .join("")
           : `<li class="empty">No participants yet</li>`;
 
-        const participantItems = details.participants.length
-          ? details.participants
-              .map((participant) => `<div class="participant-item">${participant}</div>`)
-              .join("")
-          : `<div class="participant-item participant-empty">No participants yet</div>`;
-
-      activityCard.innerHTML = `
+        activityCard.innerHTML = `
           <h4>${name}</h4>
           <p>${details.description}</p>
           <p><strong>Schedule:</strong> ${details.schedule}</p>
           <p><strong>Availability:</strong> ${spotsLeft} spots left</p>
+          <div class="participants">
+            <p><strong>Participants (${participantCount}):</strong></p>
+            <ul class="participants-list">${participantItems}</ul>
+          </div>
         `;
 
         activitiesList.appendChild(activityCard);
